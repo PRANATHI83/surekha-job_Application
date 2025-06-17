@@ -15,9 +15,9 @@ app.use(fileUpload());
 // PostgreSQL connection
 const pool = new Pool({
     user: 'postgres',
-    host: 'localhost',
+    host: 'postgress',
     database: 'employee_portal',
-    password: 'root',
+    password: 'admin1234',
     port: 5432,
 });
 
