@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./Backend
+    ports:
+      - "3004:3004"
+    environment:
+      - PORT=3004
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  employee-side:
+    build: ./Employee-side
+    ports:
+      - "8007:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  hr-view:
+    build: ./HR-view
+    ports:
+      - "8008:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:13
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_DB: employee_portal
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin1234
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+
