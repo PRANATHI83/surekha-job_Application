@@ -383,7 +383,7 @@ app.delete('/api/employees/clear', async (req, res) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3067;
 app.listen(PORT, () => {
     console.log(`Server running on port http://3.108.193.252: ${PORT}`);
 });
