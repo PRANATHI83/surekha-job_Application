@@ -385,5 +385,5 @@ app.delete('/api/employees/clear', async (req, res) => {
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port http://13.232.17.95: ${PORT}`);
+    console.log(`Server running on port http://3.108.193.252: ${PORT}`);
 });
