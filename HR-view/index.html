@@ -466,7 +466,7 @@
         // View document
         function viewDocument(id, docKey, docTitle) {
             // Fetch employee to get the latest document data
-            fetch(`http://3.108.193.252:3067/api/employee/${id}`)
+            fetch(`http://13.201.36.187:3012/api/employee/${id}`)
                 .then(response => {
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     return response.json();
