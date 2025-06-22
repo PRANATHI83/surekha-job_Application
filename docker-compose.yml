@@ -1,52 +1,49 @@
 version: '3.8'
 
 services:
-  backend:
-    build: ./Backend
-    ports:
-      - "3004:3004"
-    environment:
-      - PORT=3004
-    depends_on:
-      - postgres
-    networks:
-      - app-network
-
-  employee-side:
-    build: ./Employee-side
-    ports:
-      - "8007:80"
-    depends_on:
-      - backend
-    networks:
-      - app-network
-
-  hr-view:
-    build: ./HR-view
-    ports:
-      - "8008:80"
-    depends_on:
-      - backend
-    networks:
-      - app-network
-
   postgres:
     image: postgres:13
-    ports:
-      - "5435:5432"
+    container_name: jobapp_postgres
     environment:
-      POSTGRES_DB: employee_portal
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin1234
+      POSTGRES_PASSWORD: admin234
+      POSTGRES_DB: employee_portal
+    ports:
+      - "5445:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - app-network
+
+  backend:
+    build: ./Backend
+    container_name: jobapp_backend
+    ports:
+      - "3012:3012"
+    depends_on:
+      - postgres
+    environment:
+      PGUSER: postgres
+      PGPASSWORD: admin234
+      PGHOST: postgres
+      PGPORT: 5432
+      PGDATABASE: employee_portal
+
+  employee-side:
+    build: ./Employee-side
+    container_name: jobapp_employee_ui
+    ports:
+      - "8020:80"
+    depends_on:
+      - backend
+
+  hr-view:
+    build: ./HR-view
+    container_name: jobapp_hr_ui
+    ports:
+      - "8021:80"
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
-
-networks:
-  app-network:
 
